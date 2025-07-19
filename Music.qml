@@ -8,9 +8,9 @@ import QtQuick.Layouts
 
 Item {
 
-    property bool playing: Mpris.players.values[0]?.isPlaying
-    property bool musicExists: Mpris.players.values.length > 0
-    property var player: Mpris.players.values[0].identity
+    property bool playing: Mpris.players.values[0]?.isPlaying || falses
+    property bool musicExists: ( (Mpris.players.values?.length || 0) > 0 )
+    property var player: Mpris.players.values[0]?.identity
     property var trackName: Mpris.players.values[0]?.trackTitle || "Unknown Title"
 
     MarginWrapperManager {

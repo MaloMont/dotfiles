@@ -79,8 +79,10 @@ Item {
                 hoverEnabled: false
 
                 onWheel: (wheel) => {
-                    console.log(wheel.angleDelta.y)
+                    console.log("delta:", wheel.angleDelta.y)
                     Pipewire.defaultAudioSink.audio.volume += wheel.angleDelta.y * 0.001
+                    if(Pipewire.defaultAudioSink.audio.volume > 1.)
+                        Pipewire.defaultAudioSink.audio.volume = 1.
                 }
             }
         }

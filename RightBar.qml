@@ -25,11 +25,19 @@ Rectangle {
 
         spacing: 0
 
-        Music {
-
+        Wifi {
+            Layout.alignment: Qt.AlignVCenter
         }
 
+        Music {}
+
         Volume {
+            Layout.fillWidth: true
+            Layout.fillHeight: false
+            Layout.alignment: Qt.AlignVCenter
+        }
+
+        Battery {
             Layout.fillWidth: true
             Layout.fillHeight: false
             Layout.alignment: Qt.AlignVCenter

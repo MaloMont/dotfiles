@@ -8,7 +8,7 @@ import QtQuick.Layouts
 
 Item {
 
-    property bool playing: Mpris.players.values[0]?.isPlaying || falses
+    property bool playing: Mpris.players.values[0]?.isPlaying || false
     property bool musicExists: ( (Mpris.players.values?.length || 0) > 0 )
     property var player: Mpris.players.values[0]?.identity
     property var trackName: Mpris.players.values[0]?.trackTitle || "Unknown Title"
@@ -17,24 +17,25 @@ Item {
         margin: 0
     }
 
-    Button {
+    Text {
         id: track
-        contentItem: Text {
-            text: (musicExists) ? `${trackName}` : "quiet"
-            color: (musicExists)
-                ? (playing) ? Theme.intensity2 : Theme.surface
-                : Theme.text
-            font.pointSize: Theme.fontSize
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
+        
+        text: (musicExists) ? `${trackName}` : "no music"
+        color: (musicExists)
+            ? (playing) ? Theme.intensity2 : Theme.surface
+            : Theme.text
 
-        background: Rectangle {
-            color: "transparent"
-        }
+        font.pointSize: Theme.fontSize
 
-        onClicked: {
-            track.clicked.connect(Mpris.players.values[0]?.togglePlaying())
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                track.clicked.connect(Mpris.players.values[0]?.togglePlaying())
+            }
         }
     }
 }

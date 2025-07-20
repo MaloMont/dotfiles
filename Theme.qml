@@ -15,10 +15,15 @@ Singleton {
     property var intensity2: "#fab387"
     property var intensity3: "#f38ba8"
     property var valid: "#a6e3a1"
+    property var error: "#f38ba8"
     property var text: "#cdd6f4"
+    property var textFocused: "#f5e0dc"
 
     property real radius: 13
 
     property int widgetSize: 12
+    property int smallFontSize: 8
     property int fontSize: 11
+    property int midFontSize: 16
+    property int bigFontSize: 20
 }

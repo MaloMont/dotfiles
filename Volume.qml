@@ -22,9 +22,9 @@ Item {
 
             if(value == 0)
                 icon = "󰸈"
-            else if(value < .10)
+            else if(value < .20)
                 icon = ""
-            else if(value < .30)
+            else if(value < .40)
                 icon = ""
             else
                 icon = " "
@@ -46,6 +46,7 @@ Item {
 
         Text {
             text: icon
+            font.family: "ComicShannsMono Nerd Font"
             color: Theme.intensity2
             font.pointSize: Theme.fontSize
             Layout.fillHeight: true

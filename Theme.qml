@@ -18,6 +18,8 @@ Singleton {
     property var error: "#f38ba8"
     property var text: "#cdd6f4"
     property var textFocused: "#f5e0dc"
+    property var fontFamily: "ComicShannsMono Nerd Font"
+
 
     property real radius: 13
 

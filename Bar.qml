@@ -2,6 +2,7 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Layouts
 import "Workspaces" as Worksp
 
 Scope {
@@ -23,12 +24,30 @@ Scope {
                 right: true
             }
 
-            LeftBar {
+            RowLayout {
+                spacing: 0
                 anchors.left: parent.left
+
+                LeftBar {
+                    Layout.fillHeight: true
+                }
+
+                Smouth {
+                    topLeftVisible: true
+                }
             }
 
-            RightBar {
+            RowLayout {
+                spacing: 0
                 anchors.right: parent.right
+
+                Smouth {
+                    topRightVisible: true
+                }
+
+                RightBar {
+                    Layout.fillHeight: true
+                }
             }
         }
     }

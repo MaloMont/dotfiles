@@ -9,6 +9,8 @@ import QtQuick
 Singleton {
     id: root
 
+    property var date: new Date()
+
     readonly property string time: {
         Qt.formatDateTime(clock.date, "ddd MMM d hh:mm:ss")
     }
@@ -16,5 +18,13 @@ Singleton {
     SystemClock {
         id: clock
         precision: SystemClock.Seconds
+    }
+
+    Timer {
+        interval: 1000
+        repeat: true
+        running: true
+
+        onTriggered: root.date = new Date()
     }
 }

@@ -9,10 +9,6 @@ import "Workspaces" as Worksp
 Rectangle {
     id: widgets
 
-    anchors.left: parent.left
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-
     color: Theme.base
 
     bottomRightRadius: Theme.radius

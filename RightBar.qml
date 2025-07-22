@@ -7,10 +7,6 @@ import QtQuick.Layouts
 Rectangle {
     id: widgets
 
-    anchors.right: parent.right
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-
     color: Theme.base
 
     bottomLeftRadius: Theme.radius
@@ -20,6 +16,8 @@ Rectangle {
         leftMargin: 15
         rightMargin: 15
     }
+
+    implicitHeight: 30
 
     RowLayout {
 
@@ -44,6 +42,12 @@ Rectangle {
         }
 
         Clock {
+            Layout.alignment: Qt.AlignVCenter
+        }
+
+        PowerMgr {
+            Layout.fillWidth: true
+            Layout.fillHeight: false
             Layout.alignment: Qt.AlignVCenter
         }
     }

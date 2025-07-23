@@ -2,8 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
-import "../Widgets" as Widgets
-import "root:/"
+import "Widgets" as Widgets
 
 PanelWindow {
 

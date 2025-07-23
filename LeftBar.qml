@@ -3,8 +3,7 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import "../Widgets/Workspaces" as Worksp
-import "root:/"
+import "Widgets/Workspaces" as Worksp
 
 
 Rectangle {

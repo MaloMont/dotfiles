@@ -1,20 +1,19 @@
-// shell.qml
-import Quickshell
-import "TopBar"
 import "PointDock"
+import "TopBar"
+import Quickshell
 
 Scope {
     id: app
 
     property int pointDockMod: 0
     property int barMod: 1
-    property var mode: barMod // pointDockMod OR barMod
+    property var mode: pointDockMod // pointDockMod OR barMod
 
-    Bar {
+    property var bar: Bar {
         visible: app.mode == app.barMod
     }
 
-    Dock {
+    property var dock: Dock {
         visible: app.mode == app.pointDockMod
     }
 }

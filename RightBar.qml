@@ -3,8 +3,7 @@ import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Layouts
-import "../Widgets" as Widgets
-import "root:/"
+import "Widgets" as Widgets
 
 Rectangle {
     id: widgets

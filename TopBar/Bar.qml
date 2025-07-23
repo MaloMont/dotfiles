@@ -3,9 +3,11 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import "Workspaces" as Worksp
+import "."
 
 Scope {
+    id: bar
+    property bool visible: true
 
     Variants {
         model: Quickshell.screens // for each screen
@@ -13,6 +15,8 @@ Scope {
         PanelWindow {
             property var modelData
             screen: modelData
+
+            visible: bar.visible
 
             color: "transparent"
 

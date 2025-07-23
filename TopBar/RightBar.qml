@@ -3,6 +3,8 @@ import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Layouts
+import "../Widgets" as Widgets
+import "root:/"
 
 Rectangle {
     id: widgets
@@ -21,33 +23,27 @@ Rectangle {
 
     RowLayout {
 
-        spacing: 0
+        spacing: 15
 
-        Wifi {
+        Widgets.Wifi {
             Layout.alignment: Qt.AlignVCenter
         }
 
-        Music {}
+        Widgets.Music {}
 
-        Volume {
+        Widgets.Volume {
             Layout.fillWidth: true
             Layout.fillHeight: false
             Layout.alignment: Qt.AlignVCenter
         }
 
-        Battery {
+        Widgets.Battery {
             Layout.fillWidth: true
             Layout.fillHeight: false
             Layout.alignment: Qt.AlignVCenter
         }
 
-        Clock {
-            Layout.alignment: Qt.AlignVCenter
-        }
-
-        PowerMgr {
-            Layout.fillWidth: true
-            Layout.fillHeight: false
+        Widgets.Clock {
             Layout.alignment: Qt.AlignVCenter
         }
     }

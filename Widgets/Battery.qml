@@ -1,13 +1,15 @@
 import QtQuick
 import Quickshell.Io
 import Quickshell.Widgets
+import "root:/"
+
 
 Item {
 
     MarginWrapperManager {
         margin: 0
-        leftMargin: 10
-        rightMargin: 10
+        leftMargin: 0
+        rightMargin: 0
     }
 
     Text {

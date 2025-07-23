@@ -2,6 +2,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
+import "root:/"
 
 
 Item {

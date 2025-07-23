@@ -3,6 +3,8 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Pipewire
 import Quickshell.Widgets
+import "root:/"
+
 
 Item {
 	id: volume
@@ -33,16 +35,10 @@ Item {
 
     MarginWrapperManager {
         margin: 0
-        leftMargin: 15
-        rightMargin: 15
     }
 
     RowLayout {
-        anchors {
-            fill: parent
-            leftMargin: 10
-            rightMargin: 15
-        }
+        anchors.fill: parent
 
         Text {
             text: icon

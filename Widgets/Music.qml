@@ -4,6 +4,7 @@ import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import "root:/"
 
 
 Item {

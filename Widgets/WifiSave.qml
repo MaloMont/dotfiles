@@ -5,21 +5,24 @@ import Quickshell.Wayland
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Io
+import "root:/"
+
 
 Item {
+
     property alias panel: wifiPanelModal
     
     function showAt() {
-        wifiPanelModal.visible = !wifiPanelModal.visible;
+        wifiPanelModal.visible = true;
         wifiLogic.refreshNetworks();
     }
 
     function signalIcon(signal) {
-        if (signal >= 80) return "[!]";
-        if (signal >= 60) return "[^]";
-        if (signal >= 40) return "[~]";
-        if (signal >= 20) return "[.]";
-        return "[0]";
+        if (signal >= 80) return "good  ";
+        if (signal >= 60) return "ok    ";
+        if (signal >= 40) return "mid   ";
+        if (signal >= 20) return "low   ";
+        return "zero  ";
     }
 
     Process {
@@ -141,6 +144,7 @@ Item {
             }
         }
     }
+
     Process {
         id: deleteProfileProcess
         property string connectionName: ""
@@ -228,7 +232,7 @@ Item {
                 var lines = text.split("\n");
                 for (var i = 0; i < lines.length; ++i) {
                     var parts = lines[i].split(":");
-                    if (parts[1] === "wifi" && parts[2] !== "unavailable") {
+                    if (parts[1] === "wi.fi" && parts[2] !== "unavailable") {
                         wifiLogic.detectedInterface = parts[0];
                         break;
                     }
@@ -321,7 +325,8 @@ Item {
 
 
 
-    /* ============================= */
+/* ======================== */
+
 
 
 
@@ -335,20 +340,17 @@ Item {
     Rectangle {
         id: wifiButton
 
-        implicitWidth: 20
-        implicitHeight: 20
-        radius: 18
+        implicitWidth: 20; implicitHeight: 20
 
-        color: "transparent"
+        radius: 18
+        border.width: 1
+        color: wifiButtonArea.containsMouse ? Theme.dark_base : "transparent"
 
         Text {
             anchors.centerIn: parent
-            text: " "
-            font.family: "ComicShannsMono Nerd Font"
+            text: "  "
             font.pointSize: Theme.fontSize
-            color: wifiButtonArea.containsMouse
-                ? Theme.textFocused
-                : Theme.text
+            color: wifiButtonArea.containsMouse ? Theme.textFocused : Theme.text
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         }
@@ -358,77 +360,72 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                console.log("cliclic") // TODO
-                if(wifiPanelModal.visible)
-                    wifiPanelModal.visible = false
-                else
-                    wifiLogic.showAt()
-            }
+            onClicked: wifiLogic.showAt()
         }
     }
+
 
     PanelWindow {
         id: wifiPanelModal
 
-        implicitWidth: 480
-        implicitHeight: 800
+        implicitWidth: 420
+        implicitHeight: 600
+
+        visible: false
+        color: "transparent"
 
         anchors.top: true
         anchors.right: true
         margins.right: 0
         margins.top: 0
 
-        visible: false
-        color: "transparent"
-
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive // every keyboard inputs goes onto this panel
-
         Component.onCompleted: {
             wifiLogic.refreshNetworks()
         }
 
         Rectangle {
+            id: panelBackground
+
             anchors.fill: parent
-            color: "#FFF" // panel background
+            color: Theme.base
             radius: 24
 
             ColumnLayout {
+
                 anchors.fill: parent
-                anchors.margins: 15 // panel margin
+                anchors.margins: 15
                 spacing: 0
 
-                // title
+                // panel title
                 RowLayout {
-                    Layout.fillWidth: true
                     spacing: 20
+
+                    Layout.fillWidth: true
                     Layout.preferredHeight: 48
                     Layout.leftMargin: 16
                     Layout.rightMargin: 16
+
                     Text {
-                        text: "wifi"
-                        font.family: "Material Symbols Outlined"
-                        font.pixelSize: 32
-                        color: "#0FF"
-                    }
-                    Text {
-                        text: "Wi-Fi"
-                        font.pixelSize: 26
+                        text: "Wifi"
+                        font.pointSize: Theme.bigFontSize
                         font.bold: true
-                        color: "#F0F"
+                        color: Theme.text
                         Layout.fillWidth: true
                     }
+
                     Rectangle {
-                        width: 36; height: 36; radius: 18
-                        color: closeButtonArea.containsMouse ? "#FF0" : "transparent"
-                        border.color: "#FF0"
-                        border.width: 1
+                        implicitWidth: 80
+                        implicitHeight: 36
+
+                        radius: 18
+
+                        color: "transparent"
+
                         Text {
                             anchors.centerIn: parent
                             text: "close"
-                            font.family: closeButtonArea.containsMouse ? "Material Symbols Rounded" : "Material Symbols Outlined"
-                            font.pixelSize: 20
-                            color: closeButtonArea.containsMouse ? Theme.textFocused : Theme.text
+                            font.pointSize: Theme.bigFontSize
+                            color: closeButtonArea.containsMouse ? Theme.textFocused : Theme.overlay
                         }
                         MouseArea {
                             id: closeButtonArea
@@ -440,39 +437,43 @@ Item {
                     }
                 }
 
-                // separator
+                // separation
                 Rectangle {
                     Layout.fillWidth: true
                     height: 1
-                    color: "#000000"
-                    opacity: 0.12
+                    color: Theme.surface
+                    opacity: 0.5
                 }
 
+                // active zone
                 Rectangle {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 640
+                    Layout.preferredHeight: 440
                     Layout.alignment: Qt.AlignHCenter
                     Layout.margins: 0
-                                                // idk
-                    color: "#FF0"
-                    border.color: "#F00"
-                    border.width: 1
+
+                    color: Theme.surface
                     radius: 18
+
+                    border.color: Theme.surface
+                    border.width: 1
 
                     Rectangle {
                         id: bg
                         anchors.fill: parent
-                        color: "#CCC"
+                        color: Theme.dark_base
                         radius: 12
                         border.width: 1
-                        border.color: "#FFF"
+                        border.color: Theme.surface
                         z: 0
                     }
 
+                    // wtf is that?
                     Rectangle {
                         id: header
                     }
 
+                    // list of devices container
                     Rectangle {
                         id: listContainer
 
@@ -480,147 +481,173 @@ Item {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
-
-                        anchors.margins: 15 // bg-devices gap
+                        anchors.margins: 15
 
                         color: "transparent"
 
-                        clip: true
-
+                        // device list
                         ListView {
                             id: networkListView
+
                             anchors.fill: parent
-                            spacing: 30
+
+                            spacing: 6
                             boundsBehavior: Flickable.StopAtBounds
 
                             model: wifiLogic.networks
+
+                            // one device
                             delegate: Item {
                                 id: networkEntry
 
-                                implicitWidth: parent.width
-                                implicitHeight: modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt ? 102 : 42
+                                width: parent.width
+                                        // 102 if typing its password, 42 if not
+                                height: modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt ? 102 : 42
 
                                 ColumnLayout {
+
                                     anchors.fill: parent
                                     spacing: 0
 
-                                    // network entry background
+                                    // device container
                                     Rectangle {
                                         Layout.fillWidth: true
                                         Layout.preferredHeight: 42
-                                        radius: 8
 
-                                        color: modelData.connected
+                                        radius: 8
+                                        color: (modelData.connected)
                                             ? Theme.valid
-                                            : (networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt) ? Theme.intensity1 : Theme.overlay)
+                                            : Theme.surface
 
                                         RowLayout {
                                             anchors.fill: parent
                                             anchors.leftMargin: 12
                                             anchors.rightMargin: 12
+
                                             spacing: 12
 
+                                            // left wifi icon
                                             Text {
-                                                text: signalIcon(modelData.signal)
-                                                font.family: "Material Symbols Outlined"
-                                                font.pixelSize: 20
-                                                color: networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt)
-                                                    ? "#F0F" 
-                                                    : (modelData.connected ? "#F0F" : "#F0F")
                                                 verticalAlignment: Text.AlignVCenter
                                                 Layout.alignment: Qt.AlignVCenter
+
+                                                text: signalIcon(modelData.signal)
+                                                font.pointSize: Theme.midFontSize
+                                                color: modelData.connected 
+                                                    ? Theme.dark_base
+                                                    : (networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt) ? Theme.textFocused : Theme.text)
                                             }
 
                                             ColumnLayout {
                                                 Layout.fillWidth: true
                                                 spacing: 2
+
                                                 RowLayout {
                                                     Layout.fillWidth: true
                                                     spacing: 6
+
+                                                    // ssid
                                                     Text {
                                                         text: modelData.ssid || "Unknown Network"
-                                                        color: networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt)
-                                                            ? Theme.textFocused
-                                                            : Theme.dark_base
-                                                        font.pixelSize: 14
+                                                        color: modelData.connected 
+                                                            ? Theme.dark_base
+                                                            : (networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt) ? Theme.textFocused : Theme.text)
+                                                        font.pointSize: Theme.fontSize
                                                         elide: Text.ElideRight
                                                         Layout.fillWidth: true
                                                         Layout.alignment: Qt.AlignVCenter
                                                     }
+
+                                                    // password prompt
                                                     Item {
-                                                        implicitWidth: 22
-                                                        implicitHeight: 22
                                                         visible: wifiLogic.connectStatusSsid === modelData.ssid && wifiLogic.connectStatus !== ""
+
+                                                        width: 22
+                                                        height: 22
+
                                                         RowLayout {
                                                             anchors.fill: parent
                                                             spacing: 2
+
+                                                            // connected successfully
                                                             Text {
                                                                 visible: wifiLogic.connectStatus === "success"
                                                                 text: "check_circle"
                                                                 font.family: "Material Symbols Outlined"
-                                                                font.pixelSize: 18
+                                                                font.pointSize: Theme.fontSize
                                                                 color: Theme.valid
                                                                 verticalAlignment: Text.AlignVCenter
                                                             }
+
+                                                            // failed connecting
                                                             Text {
                                                                 visible: wifiLogic.connectStatus === "error"
                                                                 text: "error"
                                                                 font.family: "Material Symbols Outlined"
-                                                                font.pixelSize: 18
+                                                                font.pointSize: Theme.fontSize
                                                                 color: Theme.error
                                                                 verticalAlignment: Text.AlignVCenter
                                                             }
                                                         }
                                                     }
                                                 }
+
+                                                // security protocol
                                                 Text {
-                                                    text: modelData.security && modelData.security !== "--" ? modelData.security : "Open"
-                                                    color: networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt)
-                                                        ? Theme.textFocused
-                                                        : Theme.dark_base
-                                                    font.pixelSize: 11
-                                                    elide: Text.ElideRight
                                                     Layout.fillWidth: true
                                                     Layout.alignment: Qt.AlignVCenter
+                                                    text: modelData.security && modelData.security !== "--" ? modelData.security : "Open"
+                                                    color: modelData.connected 
+                                                        ? Theme.dark_base
+                                                        : (networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt) ? Theme.textFocused : Theme.text)
+                                                    font.pointSize: Theme.smallFontSize
                                                 }
+                                                
+                                                // authentification error msg ?
                                                 Text {
                                                     visible: wifiLogic.connectStatusSsid === modelData.ssid && wifiLogic.connectStatus === "error" && wifiLogic.connectError.length > 0
                                                     text: wifiLogic.connectError
-                                                    color: Theme.error
+                                                    color: Theme.intensity3
                                                     font.pixelSize: 11
                                                     elide: Text.ElideRight
                                                     Layout.fillWidth: true
                                                     Layout.alignment: Qt.AlignVCenter
                                                 }
                                             }
+
                                             Text {
                                                 visible: modelData.connected
                                                 text: "connected"
-                                                color: networkMouseArea.containsMouse || (modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt)
-                                                    ? Theme.textFocused
-                                                    : Theme.dark_base
-                                                font.pixelSize: 11
+                                                color: Theme.dark_base
+                                                font.pointSize: Theme.fontSize
                                                 verticalAlignment: Text.AlignVCenter
                                                 Layout.alignment: Qt.AlignVCenter
                                             }
+
                                             Item {
-                                                        Layout.alignment: Qt.AlignVCenter
-                                                        Layout.preferredHeight: 22
-                                                        Layout.preferredWidth: 22
-                                                        Spinner {
-                                                            visible: wifiLogic.connectingSsid === modelData.ssid
-                                                            running: wifiLogic.connectingSsid === modelData.ssid
-                                                            color: "#F0F"
-                                                            anchors.centerIn: parent
-                                                            size: 22
-                                                        }
-                                                    }
+                                                Layout.alignment: Qt.AlignVCenter
+                                                Layout.preferredHeight: 22
+                                                Layout.preferredWidth: 22
+                                                Rectangle {
+                                                    visible: wifiLogic.connectingSsid === modelData.ssid
+                                                    //running: wifiLogic.connectingSsid === modelData.ssid
+                                                    color: Theme.intensity1
+                                                    anchors.centerIn: parent
+                                                    implicitWidth: 22
+                                                    implicitHeight: 22
+                                                }
+                                            }
                                         }
+
+                                        // for the whole device container
                                         MouseArea {
                                             id: networkMouseArea
+
                                             anchors.fill: parent
                                             hoverEnabled: true
+
                                             onClicked: {
+                                                console.log("clicked", modelData.ssid)
                                                 if (modelData.connected) {
                                                     wifiLogic.disconnectAndDeleteNetwork(modelData.ssid);
                                                 } else if (modelData.security && modelData.security !== "--") {
@@ -636,77 +663,116 @@ Item {
                                                 }
                                             }
                                         }
-                                    }
+                                    }   
 
-
+                                    // connection-relative
                                     Rectangle {
                                         visible: modelData.ssid === wifiLogic.passwordPromptSsid && wifiLogic.showPasswordPrompt
+
                                         Layout.fillWidth: true
                                         Layout.preferredHeight: 60
-                                        radius: 8
-                                        color: "transparent"
                                         anchors.leftMargin: 32
                                         anchors.rightMargin: 32
+
+                                        radius: 8
+                                        color: "transparent"
                                         z: 2
+
                                         RowLayout {
                                             anchors.fill: parent
                                             anchors.margins: 12
                                             spacing: 10
+
                                             Item {
                                                 Layout.fillWidth: true
                                                 Layout.preferredHeight: 36
+
                                                 Rectangle {
                                                     anchors.fill: parent
+
                                                     radius: 8
+
                                                     color: "transparent"
-                                                    border.color: passwordField.activeFocus ? "#F0F" : "#F0F"
+                                                    border.color: passwordField.activeFocus ? "#FF0000" : "#00FFFF"
                                                     border.width: 1
+
+                                                    // password field
                                                     TextInput {
                                                         id: passwordField
+
                                                         anchors.fill: parent
                                                         anchors.margins: 12
-                                                        text: wifiLogic.passwordInput
-                                                        font.pixelSize: 13
-                                                        color: "#F00"
                                                         verticalAlignment: TextInput.AlignVCenter
                                                         clip: true
+
+                                                        text: wifiLogic.passwordInput
+                                                        font.pixelSize: 13
+
+                                                        color: Theme.text
+
                                                         focus: true
                                                         selectByMouse: true
                                                         activeFocusOnTab: true
+                                                        activeFocusOnPress: true
+
+                                                        passwordMaskDelay: 300
+
                                                         inputMethodHints: Qt.ImhNone
                                                         echoMode: TextInput.Password
+
                                                         onTextChanged: wifiLogic.passwordInput = text
+
                                                         onAccepted: wifiLogic.submitPassword()
+
                                                         MouseArea {
                                                             id: passwordMouseArea
                                                             anchors.fill: parent
-                                                            onClicked: passwordField.forceActiveFocus()
+                                                            onClicked: {
+                                                                passwordField.forceActiveFocus()
+                                                            }
+                                                        }
+
+                                                        onActiveFocusChanged: {
+                                                            if (activeFocus){
+                                                                if (own.enteredText === ""){
+                                                                    // Removing the placeholder
+                                                                    lineEdit.text = "";
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
+
                                             Rectangle {
                                                 width: 80
                                                 height: 36
                                                 radius: 18
-                                                color: "#F0F"
-                                                border.color: "#F0F"
+
+                                                color: "#FFFF00"
+                                                border.color: "#FFFF00"
                                                 border.width: 0
                                                 opacity: 1.0
+
                                                 Behavior on color { ColorAnimation { duration: 100 } }
+
                                                 MouseArea {
                                                     anchors.fill: parent
-                                                    onClicked: wifiLogic.submitPassword()
                                                     cursorShape: Qt.PointingHandCursor
                                                     hoverEnabled: true
-                                                    onEntered: parent.color = Qt.darker("#F0F", 1.1)
-                                                    onExited: parent.color = "#F0F"
+
+                                                    onClicked: wifiLogic.submitPassword()
+
+                                                    onEntered: parent.color = Qt.darker("#FF00FF", 1.1)
+
+                                                    onExited: parent.color = "#FF00FF"
                                                 }
+
                                                 Text {
                                                     anchors.centerIn: parent
                                                     text: "Connect"
-                                                    color: "#FF0"
-                                                    font.pixelSize: 14
+                                                    color: Theme.intensity1
+                                                    font.pointSize: Theme.fontSize
                                                     font.bold: true
                                                 }
                                             }

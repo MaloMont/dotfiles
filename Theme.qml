@@ -20,6 +20,7 @@ Singleton {
     property var textFocused: "#f5e0dc"
     property var fontFamily: "ComicShannsMono Nerd Font"
 
+    property var dockBorderColor: intensity1
 
     property real radius: 13
 

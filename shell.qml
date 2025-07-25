@@ -1,5 +1,3 @@
-import "PointDock"
-import "TopBar"
 import Quickshell
 
 Scope {

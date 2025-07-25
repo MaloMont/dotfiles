@@ -33,12 +33,11 @@ Item {
 		}
 	}
 
-    MarginWrapperManager {
-        margin: 0
-    }
+    implicitWidth: 72 // fixed value = max value (changing icon !=> changing size)
+    implicitHeight: rowLayout.height
 
     RowLayout {
-        anchors.fill: parent
+        id: rowLayout
 
         Text {
             text: icon

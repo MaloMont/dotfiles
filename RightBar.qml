@@ -45,5 +45,9 @@ Rectangle {
         Widgets.Clock {
             Layout.alignment: Qt.AlignVCenter
         }
+
+        Widgets.ModSwitch {
+            Layout.alignment: Qt.AlignVCenter
+        }
     }
 }

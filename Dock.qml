@@ -21,7 +21,7 @@ PanelWindow {
     mask: Region {
         Region { item: window }
         Region { item: volumeContainer }
-        Region { item: wifiContainer }
+        Region { item: modSwitchContainer }
         Region { item: workspacesContainer }
     }
 
@@ -49,7 +49,7 @@ PanelWindow {
             drag.axis: Drag.XAndYAxis
 
             onClicked: {
-                fast.show = !fast.show
+                orbiting.show = !orbiting.show
             }
         }
 
@@ -73,124 +73,111 @@ PanelWindow {
     }
 
     Item {
-        id: fast
+        id: orbiting
 
         property bool show: false
         property int space: 15
         property int fixedItemHeight: 32
         property int centerX: parent.width / 2
         property int centerY: parent.height / 2
+    }
 
-        FirstLvlElem {
-            id: wifiContainer
+    FirstLvlElem {
+        id: modSwitchContainer
 
-            function getRelPos() {
-                if(!fast.show)
-                    return RelativePos.center
+        function getRelPos() {
+            if(!orbiting.show)
+                return RelativePos.center
 
-                if(window.y < fast.centerY)
-                    return RelativePos.bottom
+            if(window.y < orbiting.centerY)
+                return RelativePos.bottom
+            else
+                return RelativePos.top
+        }
+
+        show: orbiting.show
+        boundX: window.x
+        boundY: window.y
+        boundW: window.width
+        boundH: window.height
+        boundSpace: orbiting.space
+        relPos: getRelPos()
+
+        Widgets.ModSwitch {
+            id: modSwitch
+            anchors.centerIn: parent
+        }
+
+        implicitHeight: orbiting.fixedItemHeight
+        implicitWidth: modSwitch.width + 10 + (orbiting.fixedItemHeight - modSwitch.height)
+    }
+
+
+    FirstLvlElem {
+        id: volumeContainer
+
+        function getRelPos() {
+            if(!orbiting.show)
+                return RelativePos.center
+
+            if(window.y < orbiting.centerY) {
+                if(window.x < orbiting.centerX)
+                    return RelativePos.bottomRight
                 else
-                    return RelativePos.top
-            }
-
-            show: fast.show
-            boundX: window.x
-            boundY: window.y
-            boundW: window.width
-            boundH: window.height
-            boundSpace: fast.space
-            relPos: getRelPos()
-
-            Widgets.Wifi {
-                id: wifi
-                anchors.centerIn: parent
-            }
-
-            implicitHeight: fast.fixedItemHeight
-            implicitWidth: wifi.width + (fast.fixedItemHeight - wifi.height)
-
-            onXChanged: {
-                console.log("WINDOW:", window.x, window.y)
-                console.log("wifi :", x, y, opacity)
-            }
-        }
-
-
-        FirstLvlElem {
-            id: volumeContainer
-
-            function getRelPos() {
-                if(!fast.show)
-                    return RelativePos.center
-
-                if(window.y < fast.centerY) {
-                    if(window.x < fast.centerX)
-                        return RelativePos.bottomRight
-                    else
-                        return RelativePos.bottomLeft
-                }else {
-                    if(window.x < fast.centerX)
-                        return RelativePos.topRight
-                    else
-                        return RelativePos.topLeft
-                }
-            }
-
-            show: fast.show
-            boundX: window.x
-            boundY: window.y
-            boundW: window.width
-            boundH: window.height
-            boundSpace: fast.space
-            relPos: getRelPos()
-
-            Widgets.Volume {
-                id: volume
-                anchors.centerIn: parent
-            }
-
-            implicitHeight: fast.fixedItemHeight
-            implicitWidth: volume.width + (fast.fixedItemHeight - volume.height)
-
-            onXChanged: {
-                console.log("volume :", x, y, opacity)
-            }
-        }
-
-
-        FirstLvlElem {
-            id: workspacesContainer
-
-            function getRelPos() {
-                if(!fast.show)
-                    return RelativePos.center
-
-                if(window.x < fast.centerX)
-                    return RelativePos.right
+                    return RelativePos.bottomLeft
+            }else {
+                if(window.x < orbiting.centerX)
+                    return RelativePos.topRight
                 else
-                    return RelativePos.left
-            }
-
-            show: fast.show
-            boundX: window.x
-            boundY: window.y
-            boundW: window.width
-            boundH: window.height
-            boundSpace: fast.space
-            relPos: getRelPos()
-
-            Widgets.Workspaces {
-                id: workspaces
-                anchors.centerIn: parent
-            }
-
-            implicitHeight: fast.fixedItemHeight
-            implicitWidth: workspaces.width + (fast.fixedItemHeight - workspaces.height)
-
-            onXChanged: {
-                console.log("workspaces :", x, y, opacity)
+                    return RelativePos.topLeft
             }
         }
+
+        show: orbiting.show
+        boundX: window.x
+        boundY: window.y
+        boundW: window.width
+        boundH: window.height
+        boundSpace: orbiting.space
+        relPos: getRelPos()
+
+        Widgets.Volume {
+            id: volume
+            anchors.centerIn: parent
+        }
+
+        implicitHeight: orbiting.fixedItemHeight
+        implicitWidth: volume.width + (orbiting.fixedItemHeight - volume.height)
+    }
+
+
+    FirstLvlElem {
+        id: workspacesContainer
+
+        function getRelPos() {
+            if(!orbiting.show)
+                return RelativePos.center
+
+            if(window.x < orbiting.centerX)
+                return RelativePos.right
+            else
+                return RelativePos.left
+        }
+
+        show: orbiting.show
+        boundX: window.x
+        boundY: window.y
+        boundW: window.width
+        boundH: window.height
+        boundSpace: orbiting.space
+        relPos: getRelPos()
+
+        Widgets.Workspaces {
+            id: workspaces
+            anchors.centerIn: parent
+        }
+
+        implicitHeight: orbiting.fixedItemHeight
+        implicitWidth: workspaces.width + (orbiting.fixedItemHeight - workspaces.height)
     }
 }

@@ -42,16 +42,16 @@ Rectangle {
     border.width: 2
 
     Behavior on x {
-        NumberAnimation { duration: 80 }
+        NumberAnimation { duration: 100 }
     }
 
     Behavior on y {
-        NumberAnimation { duration: 80 }
+        NumberAnimation { duration: 100 }
     }
 
     Behavior on opacity {
         NumberAnimation {
-            duration: 80
+            duration: 100
             easing.type: Easing.InOutQuad
         }
     }

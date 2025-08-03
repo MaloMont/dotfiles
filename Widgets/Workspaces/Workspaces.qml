@@ -9,7 +9,6 @@ import "root:/"
 Row
 {
     spacing: 10
-    anchors.centerIn: parent
     padding: 5
 
     property var nbWorkspaces: 10

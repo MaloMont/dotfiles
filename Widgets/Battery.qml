@@ -49,11 +49,12 @@ Item {
                 else if (capacity <= 40) batteryIcon = "󰁽"
                 else if (capacity <= 60) batteryIcon = "󰁿"
                 else if (capacity <= 80) batteryIcon = "󰂁"
-                else batteryIcon = "󰂂"
-                
+                else if (capacity <= 95) batteryIcon = "󰂂"
+                else batteryIcon = "󰁹"
+
                 const symbol = status === "Charging" ? "󰂄" : batteryIcon
                 widget.battery = `${symbol} ${capacity}%`
-                widget.color = status === "Charging" ? Theme.valid : Theme.intensity2
+                widget.color = (status === "Charging" || capacity === 100) ? Theme.valid : Theme.intensity2
             }
             }
         }

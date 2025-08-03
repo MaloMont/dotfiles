@@ -17,7 +17,7 @@ Singleton {
     property var valid: "#a6e3a1"
     property var error: "#f38ba8"
     property var text: "#cdd6f4"
-    property var textFocused: "#f5e0dc"
+    property var textFocused: intensity2 //"#f5e0dc"
     property var fontFamily: "ComicShannsMono Nerd Font"
 
     property var dockBorderColor: intensity1

@@ -10,6 +10,8 @@ Item {
 	id: volume
 
     property var icon: " "
+    property var requiredWidth: 0
+    property var requiredHeight: 0
 
 	// Bind the pipewire node so its volume will be tracked
 	PwObjectTracker {
@@ -33,18 +35,19 @@ Item {
 		}
 	}
 
-    implicitWidth: 72 // fixed value = max value (changing icon !=> changing size)
+    implicitWidth: requiredWidth != 0 ? requiredWidth : 75 // fixed value = max value (changing icon !=> changing size)
     implicitHeight: rowLayout.height
 
     RowLayout {
         id: rowLayout
 
         Text {
+            id: volumeIcon
             text: icon
             font.family: "ComicShannsMono Nerd Font"
             color: Theme.intensity2
             font.pointSize: Theme.fontSize
-            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignVCenter
         }
 
         Rectangle {
@@ -52,8 +55,8 @@ Item {
 
             Layout.alignment: Qt.AlignVCenter
 
-            implicitWidth: 50
-            implicitHeight: Theme.widgetSize
+            implicitWidth: volume.implicitWidth - volumeIcon.width
+            implicitHeight: requiredHeight != 0 ? requiredHeight : Theme.widgetSize
 
             radius: 10
             color: Theme.surface

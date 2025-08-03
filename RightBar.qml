@@ -1,6 +1,5 @@
 import Quickshell
 import Quickshell.Widgets
-import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Layouts
 import "Widgets" as Widgets
@@ -24,6 +23,14 @@ Rectangle {
 
         spacing: 15
 
+        Widgets.ModSwitch {
+            Layout.alignment: Qt.AlignVCenter
+        }
+
+        Widgets.Bluetooth {
+            Layout.alignment: Qt.AlignVCenter
+        }
+
         Widgets.Wifi {
             Layout.alignment: Qt.AlignVCenter
         }
@@ -46,7 +53,9 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
         }
 
-        Widgets.ModSwitch {
+// TODO: brightness, bluetooth
+
+        Widgets.DashboardButton {
             Layout.alignment: Qt.AlignVCenter
         }
     }

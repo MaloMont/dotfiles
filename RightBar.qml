@@ -21,7 +21,7 @@ Rectangle {
 
     RowLayout {
 
-        spacing: 15
+        spacing: 20
 
         Widgets.ModSwitch {
             Layout.alignment: Qt.AlignVCenter

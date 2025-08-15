@@ -38,10 +38,7 @@ Item {
         var min = Math.round(Math.round(seconds) / 60)
         var sec = Math.round(seconds) % 60
 
-        if(min == 0)
-            return `${sec}`
-        else
-            return (sec < 10) ? `${min}:0${sec}` : `${min}:${sec}`
+        return (sec < 10) ? `${min}:0${sec}` : `${min}:${sec}`
     }
 
     MarginWrapperManager {
@@ -87,9 +84,9 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
 
                 text: (musicExists) ? `${trackName} (${trackArtist})` : "no music"
-                color: (musicExists)
-                    ? (playing) ? Theme.intensity2 : Theme.surface
-                    : Theme.text
+                color: (inDashboard)
+                        ? (playing) ? Theme.intensity2 : Theme.surface
+                        : (playing) ? (textMouseArea.containsMouse) ? Theme.intensity2 : Theme.text : Theme.surface
 
                 font.pointSize: Theme.fontSize
 
@@ -100,8 +97,10 @@ Item {
                 elide: Text.ElideRight
 
                 MouseArea {
+                    id: textMouseArea
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
+                    hoverEnabled: true
                     onClicked: {
                         trackText.clicked.connect(player?.togglePlaying())
                     }

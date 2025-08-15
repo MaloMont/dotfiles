@@ -9,6 +9,7 @@ import "root:/"
 Item {
 	id: volume
 
+    property bool inDashboard: false
     property var icon: " "
     property var requiredWidth: 0
     property var requiredHeight: 0
@@ -45,7 +46,7 @@ Item {
             id: volumeIcon
             text: icon
             font.family: "ComicShannsMono Nerd Font"
-            color: Theme.intensity2
+            color: (inDashboard) ? Theme.intensity2 : Theme.text
             font.pointSize: Theme.fontSize
             Layout.alignment: Qt.AlignVCenter
         }
@@ -70,7 +71,7 @@ Item {
 
                 implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
                 radius: parent.radius
-                color: Theme.intensity2
+                color: (inDashboard) ? Theme.intensity2 : Theme.text
             }
 
             MouseArea {

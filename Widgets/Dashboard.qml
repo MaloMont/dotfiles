@@ -68,7 +68,7 @@ PanelWindow {
                     Layout.column: 10
                     Layout.columnSpan: 4
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
+                    inDashboard: true
                     requiredHeight: 20
                     requiredWidth: 400
                 }

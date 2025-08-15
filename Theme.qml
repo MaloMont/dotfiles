@@ -2,29 +2,31 @@ pragma Singleton
 
 import Quickshell
 import QtQuick
+import "Themes" as Themes
 
 Singleton {
-    id: theme
 
-    property var base: "#1E1E2E"
-    property var dark_base: "#11111B"
-    property var surface: "#585b70"
-    property var overlay: "#9399b2"
+    property var theme: Themes.Gruvbox
 
-    property var intensity1: "#74c7ec"
-    property var intensity2: "#fab387"
-    property var intensity3: "#f38ba8"
-    property var valid: "#a6e3a1"
-    property var error: "#f38ba8"
-    property var text: "#cdd6f4"
-    property var textFocused: intensity2 //"#f5e0dc"
-    property var fontFamily: "ComicShannsMono Nerd Font"
+    property var base: theme.base
+    property var dark_base: theme.dark_base
+    property var surface: theme.surface
+    property var overlay: theme.overlay
 
-    property var dockBorderColor: intensity1
+    property var intensity1: theme.intensity1
+    property var intensity2: theme.intensity2
+    property var intensity3: theme.intensity3
+    property var valid: theme.valid
+    property var error: theme.error
+    property var text: theme.text
+    property var textFocused: theme.textFocused
+
+    property var dockBorderColor: theme.dockBorderColor
 
     property real radius: 13
-
     property int widgetSize: 12
+
+    property var fontFamily: "ComicShannsMono Nerd Font"
     property int smallFontSize: 8
     property int fontSize: 11
     property int midFontSize: 16

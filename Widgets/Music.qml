@@ -83,12 +83,13 @@ Item {
                 id: trackText
                 Layout.alignment: Qt.AlignHCenter
 
-                text: (musicExists) ? `${trackName} (${trackArtist})` : "no music"
+                text: (musicExists) ? `${trackName} (${trackArtist})` : "󰎊"
                 color: (inDashboard)
-                        ? (playing) ? Theme.intensity2 : Theme.surface
-                        : (playing) ? (textMouseArea.containsMouse) ? Theme.intensity2 : Theme.text : Theme.surface
+                        ? (playing) ? Theme.intensity2 : Theme.text
+                        : (playing) ? (textMouseArea.containsMouse) ? Theme.intensity2 : Theme.text : Theme.text
 
                 font.pointSize: Theme.fontSize
+                font.family: Theme.fontFamily
 
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

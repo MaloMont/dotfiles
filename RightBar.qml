@@ -23,7 +23,11 @@ Rectangle {
 
         spacing: 20
 
-        Widgets.ModSwitch {
+//        Widgets.ModSwitch {
+//            Layout.alignment: Qt.AlignVCenter
+//        }
+
+        Widgets.Music {
             Layout.alignment: Qt.AlignVCenter
         }
 
@@ -34,8 +38,6 @@ Rectangle {
         Widgets.Wifi {
             Layout.alignment: Qt.AlignVCenter
         }
-
-        Widgets.Music {}
 
         Widgets.Volume {
             Layout.fillWidth: true

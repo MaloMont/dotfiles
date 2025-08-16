@@ -6,7 +6,7 @@ import QtQuick
 Singleton {
     id: gruvbox
 
-    property var base: "#32302F"
+    property var base: "#282828"
     property var dark_base: "#1D2021"
     property var surface: "#665C54"
     property var overlay: "#928374"

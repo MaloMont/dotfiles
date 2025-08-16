@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Widgets
 import "root:/"
 
 
@@ -35,19 +36,32 @@ PanelWindow {
                 Layout.fillWidth: true
                 spacing: 1
 
-                Text {
-                    text: ""
-                    color: previousBtnArea.containsMouse ? Theme.textFocused : Theme.text
+                Rectangle {
 
-                    MouseArea {
-                        id: previousBtnArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-            
-                        onClicked: {
-                            let newDate = new Date(calendar.year, calendar.month - 1, 1);
-                            calendar.year = newDate.getFullYear();
-                            calendar.month = newDate.getMonth();
+                    color: (previousBtnArea.containsMouse) ? Theme.dark_base : "transparent"
+                    radius: 1000
+
+                    implicitWidth: previousBtnText.height + 6
+                    implicitHeight: previousBtnText.height + 6
+
+                    Text {
+                        id: previousBtnText
+                        anchors.centerIn: parent
+
+                        text: ""
+                        color: previousBtnArea.containsMouse ? Theme.textFocused : Theme.text
+
+                        MouseArea {
+                            id: previousBtnArea
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+                            hoverEnabled: true
+                
+                            onClicked: {
+                                let newDate = new Date(calendar.year, calendar.month - 1, 1);
+                                calendar.year = newDate.getFullYear();
+                                calendar.month = newDate.getMonth();
+                            }
                         }
                     }
                 }
@@ -61,20 +75,33 @@ PanelWindow {
                     font.bold: true
                 }
 
-                Text {
-                    text: ""
-                    color: nextBtnArea.containsMouse ? Theme.textFocused : Theme.text
+                Rectangle {
 
-                    MouseArea {
-                        id: nextBtnArea
+                    color: (nextBtnArea.containsMouse) ? Theme.dark_base : "transparent"
+                    radius: 1000
 
-                        anchors.fill: parent
-                        hoverEnabled: true
-            
-                        onClicked: {
-                            let newDate = new Date(calendar.year, calendar.month + 1, 1);
-                            calendar.year = newDate.getFullYear();
-                            calendar.month = newDate.getMonth();
+                    implicitWidth: nextBtnText.height + 6
+                    implicitHeight: nextBtnText.height + 6
+
+                    Text {
+                        id: nextBtnText
+                        anchors.centerIn: parent
+                        
+                        text: ""
+                        color: nextBtnArea.containsMouse ? Theme.textFocused : Theme.text
+
+                        MouseArea {
+                            id: nextBtnArea
+
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                
+                            onClicked: {
+                                let newDate = new Date(calendar.year, calendar.month + 1, 1);
+                                calendar.year = newDate.getFullYear();
+                                calendar.month = newDate.getMonth();
+                            }
                         }
                     }
                 }

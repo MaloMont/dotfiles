@@ -18,12 +18,15 @@ Item {
     Text {
         text: Time.time
 
-        color: Theme.text
+        color: (timeMouseArea.containsMouse) ? Theme.intensity2 : Theme.text
         font.pointSize: Theme.fontSize
+        font.family: Theme.fontFamily
 
         MouseArea {
+            id: timeMouseArea
             anchors.fill: parent
             hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
 
             onClicked: {
                 timeWidget.calendar.visible = !timeWidget.calendar.visible

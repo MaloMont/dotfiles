@@ -34,30 +34,41 @@ PanelWindow {
             bottomLeftRadius: Theme.radius
             color: Theme.base
 
-            GridLayout {
-                rowSpacing: 20
-                columnSpacing: 0
-                uniformCellWidths: true
+            ColumnLayout {
+                spacing: 20
 
-                implicitWidth: 300
+                implicitWidth: 450
 
-                Battery {
-                    Layout.row: 0
-                    Layout.column: 10
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                }
+                RowLayout {
+                    spacing: 20
 
-                WifiButton {
-                    id: wifiBtn
-                    Layout.row: 0
-                    Layout.column: 11
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    Layout.minimumWidth: parent.width
+                    Layout.maximumWidth: parent.width
+                    Layout.minimumHeight: 40
+
+                    uniformCellSizes: true
+
+                    Battery {
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    }
+
+                    WifiButton {
+                        id: wifiBtn
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    }
+
+                    ShutdownButton {
+                        id: shutdownBtn
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    }
                 }
 
                 Shutdown {
-                    Layout.row: 0
-                    Layout.column: 12
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    visible: shutdownBtn.interfaceVisible
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.minimumWidth: parent.width
+                    Layout.maximumWidth: parent.width
+                    Layout.minimumHeight: 40
                 }
 
                 Wifi {
@@ -66,14 +77,15 @@ PanelWindow {
                     Layout.row: 2
                     Layout.column: 10
                     Layout.columnSpan: 3
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    Layout.alignment: Qt.AlignHCenter
+                    hMargin: 20
                 }
 
                 Volume {
                     Layout.row: 5
                     Layout.column: 10
                     Layout.columnSpan: 3
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    Layout.alignment: Qt.AlignHCenter
                     inDashboard: true
                     requiredHeight: 20
                     requiredWidth: parent.width
@@ -86,7 +98,7 @@ PanelWindow {
                     Layout.columnSpan: 3
                     inDashboard: true
                     coverSize: 130
-                    requiredWidth: 380
+                    requiredWidth: parent.width - 20
                 }
             }
         }

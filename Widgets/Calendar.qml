@@ -15,157 +15,170 @@ PanelWindow {
     anchors.top: true
     anchors.right: true
 
-    implicitWidth: 400
-    implicitHeight: 320
-
     color: "transparent"
 
-    Rectangle {
-        color: Theme.base
-        radius: Theme.radius
+    implicitWidth: row.width
+    implicitHeight: row.height
 
-        anchors.fill: parent
+    RowLayout {
+        id: row
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 16
-            spacing: 1
+        spacing: 0
 
-            // Month/Year header with navigation
-            RowLayout {
-                Layout.fillWidth: true
+        Smouth {
+            id: smouthCornerLeft
+            Layout.alignment: Qt.AlignTop
+            topRightVisible: true
+        }
+
+        Rectangle {
+            color: Theme.base
+            bottomLeftRadius: Theme.radius
+
+            implicitWidth: 400
+            implicitHeight: 320
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 16
                 spacing: 1
 
-                Rectangle {
-
-                    color: (previousBtnArea.containsMouse) ? Theme.dark_base : "transparent"
-                    radius: 1000
-
-                    implicitWidth: previousBtnText.height + 6
-                    implicitHeight: previousBtnText.height + 6
-
-                    Text {
-                        id: previousBtnText
-                        anchors.centerIn: parent
-
-                        text: ""
-                        color: previousBtnArea.containsMouse ? Theme.textFocused : Theme.text
-
-                        MouseArea {
-                            id: previousBtnArea
-                            anchors.fill: parent
-                            cursorShape: Qt.PointingHandCursor
-                            hoverEnabled: true
-                
-                            onClicked: {
-                                let newDate = new Date(calendar.year, calendar.month - 1, 1);
-                                calendar.year = newDate.getFullYear();
-                                calendar.month = newDate.getMonth();
-                            }
-                        }
-                    }
-                }
-
-                Text {
+                // Month/Year header with navigation
+                RowLayout {
                     Layout.fillWidth: true
-                    horizontalAlignment: Text.AlignHCenter
-                    text: calendar.title
-                    color: Theme.text
-                    font.pointSize: Theme.fontSize
-                    font.bold: true
-                }
+                    spacing: 1
 
-                Rectangle {
+                    Rectangle {
 
-                    color: (nextBtnArea.containsMouse) ? Theme.dark_base : "transparent"
-                    radius: 1000
+                        color: (previousBtnArea.containsMouse) ? Theme.dark_base : "transparent"
+                        radius: 1000
 
-                    implicitWidth: nextBtnText.height + 6
-                    implicitHeight: nextBtnText.height + 6
+                        implicitWidth: previousBtnText.height + 6
+                        implicitHeight: previousBtnText.height + 6
+
+                        Text {
+                            id: previousBtnText
+                            anchors.centerIn: parent
+
+                            text: ""
+                            color: previousBtnArea.containsMouse ? Theme.textFocused : Theme.text
+
+                            MouseArea {
+                                id: previousBtnArea
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                hoverEnabled: true
+                    
+                                onClicked: {
+                                    let newDate = new Date(calendar.year, calendar.month - 1, 1);
+                                    calendar.year = newDate.getFullYear();
+                                    calendar.month = newDate.getMonth();
+                                }
+                            }
+                        }
+                    }
 
                     Text {
-                        id: nextBtnText
-                        anchors.centerIn: parent
-                        
-                        text: ""
-                        color: nextBtnArea.containsMouse ? Theme.textFocused : Theme.text
+                        Layout.fillWidth: true
+                        horizontalAlignment: Text.AlignHCenter
+                        text: calendar.title
+                        color: Theme.text
+                        font.pointSize: Theme.fontSize
+                        font.bold: true
+                    }
 
-                        MouseArea {
-                            id: nextBtnArea
+                    Rectangle {
 
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                
-                            onClicked: {
-                                let newDate = new Date(calendar.year, calendar.month + 1, 1);
-                                calendar.year = newDate.getFullYear();
-                                calendar.month = newDate.getMonth();
+                        color: (nextBtnArea.containsMouse) ? Theme.dark_base : "transparent"
+                        radius: 1000
+
+                        implicitWidth: nextBtnText.height + 6
+                        implicitHeight: nextBtnText.height + 6
+
+                        Text {
+                            id: nextBtnText
+                            anchors.centerIn: parent
+                            
+                            text: ""
+                            color: nextBtnArea.containsMouse ? Theme.textFocused : Theme.text
+
+                            MouseArea {
+                                id: nextBtnArea
+
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                    
+                                onClicked: {
+                                    let newDate = new Date(calendar.year, calendar.month + 1, 1);
+                                    calendar.year = newDate.getFullYear();
+                                    calendar.month = newDate.getMonth();
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            DayOfWeekRow {
-                Layout.fillWidth: true
-                spacing: 0
-                Layout.leftMargin: 2  // Align with grid
-                Layout.rightMargin: 2
-                delegate: Text {
-                    text: shortName
-                    color: Theme.text
-                    opacity: 1
-                    font.pointSize: Theme.fontSize
-                    font.bold: true
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-
-            MonthGrid {
-                id: calendar
-                Layout.fillWidth: true
-                Layout.leftMargin: 2
-                Layout.rightMargin: 2
-                spacing: 0
-                month: Time.date.getMonth()
-                year: Time.date.getFullYear()
-
-                delegate: Rectangle {
-                    implicitWidth: 10
-                    implicitHeight: 32
-                    radius: 8
-                    color: {
-                        if (model.today)
-                            return Theme.intensity1;
-                        if (mouseArea2.containsMouse)
-                            return Theme.dark_base;
-                        return "transparent";
-                    }
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: model.day
-                        color: model.today
-                            ? Theme.dark_base
-                            : (mouseArea2.containsMouse
-                                ? Theme.textFocused
-                                : Theme.text)
-
-                        opacity: model.month === calendar.month ? 1.0 : 0.4
+                DayOfWeekRow {
+                    Layout.fillWidth: true
+                    spacing: 0
+                    Layout.leftMargin: 2  // Align with grid
+                    Layout.rightMargin: 2
+                    delegate: Text {
+                        text: shortName
+                        color: Theme.text
+                        opacity: 1
                         font.pointSize: Theme.fontSize
-                        font.bold: model.today ? true : false
+                        font.bold: true
+                        horizontalAlignment: Text.AlignHCenter
                     }
+                }
 
-                    MouseArea {
-                        id: mouseArea2
-                        anchors.fill: parent
-                        hoverEnabled: true
-                    }
+                MonthGrid {
+                    id: calendar
+                    Layout.fillWidth: true
+                    Layout.leftMargin: 2
+                    Layout.rightMargin: 2
+                    spacing: 0
+                    month: Time.date.getMonth()
+                    year: Time.date.getFullYear()
 
-                    Behavior on color {
-                        ColorAnimation {
-                            duration: 150
+                    delegate: Rectangle {
+                        implicitWidth: 10
+                        implicitHeight: 32
+                        radius: 8
+                        color: {
+                            if (model.today)
+                                return Theme.intensity1;
+                            if (mouseArea2.containsMouse)
+                                return Theme.dark_base;
+                            return "transparent";
+                        }
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: model.day
+                            color: model.today
+                                ? Theme.dark_base
+                                : (mouseArea2.containsMouse
+                                    ? Theme.textFocused
+                                    : Theme.text)
+
+                            opacity: model.month === calendar.month ? 1.0 : 0.4
+                            font.pointSize: Theme.fontSize
+                            font.bold: model.today ? true : false
+                        }
+
+                        MouseArea {
+                            id: mouseArea2
+                            anchors.fill: parent
+                            hoverEnabled: true
+                        }
+
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: 150
+                            }
                         }
                     }
                 }

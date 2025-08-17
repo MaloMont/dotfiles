@@ -86,7 +86,8 @@ Item {
                 text: (musicExists) ? `${trackName} (${trackArtist})` : "󰎊"
                 color: (inDashboard)
                         ? (playing) ? Theme.intensity2 : Theme.text
-                        : (playing) ? (textMouseArea.containsMouse) ? Theme.intensity2 : Theme.text : Theme.text
+                        : (playing) ? (textMouseArea.containsMouse) ? Theme.hoovered : Theme.text
+                        : Theme.text
 
                 font.pointSize: Theme.fontSize
                 font.family: Theme.fontFamily
@@ -100,7 +101,7 @@ Item {
                 MouseArea {
                     id: textMouseArea
                     anchors.fill: parent
-                    cursorShape: (playing) ? Qt.PointingHandCursor : Qt.ArrowCursorQt
+                    cursorShape: (playing && !inDashboard) ? Qt.PointingHandCursor : Qt.ArrowCursorQt
                     hoverEnabled: true
                     onClicked: {
                         player.togglePlaying()

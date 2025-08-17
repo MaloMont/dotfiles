@@ -11,14 +11,17 @@ Item {
         margin: 0
     }
 
-    property var calendar: Calendar {
-        
+    Calendar {
+        id: calendar
+        visible: false
     }
 
     Text {
         text: Time.time
 
-        color: (timeMouseArea.containsMouse) ? Theme.intensity2 : Theme.text
+        color: (timeMouseArea.containsMouse) ? Theme.hoovered
+             : (calendar.visible) ? Theme.active : Theme.text
+
         font.pointSize: Theme.fontSize
         font.family: Theme.fontFamily
 
@@ -29,7 +32,7 @@ Item {
             cursorShape: Qt.PointingHandCursor
 
             onClicked: {
-                timeWidget.calendar.visible = !timeWidget.calendar.visible
+                calendar.visible = !calendar.visible
             }
         }
     }

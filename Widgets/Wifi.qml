@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import "root:/"
 
 Rectangle {
+    property int hMargin: 10
 
     color: Theme.base
     bottomLeftRadius: Theme.radius
@@ -15,7 +16,7 @@ Rectangle {
     }
 
     RowLayout {
-        spacing: 10
+        spacing: hMargin
 
         // list of networks
         ColumnLayout {
@@ -141,6 +142,7 @@ Rectangle {
                 font.pointSize: Theme.fontSize
                 color: Theme.intensity2
             }
+
             Histogram {
                 Layout.alignment: Qt.AlignHCenter
                 historyData: Network.sentHistory

@@ -20,6 +20,8 @@ Singleton {
     property var error: theme.error
     property var text: theme.text
     property var textFocused: theme.textFocused
+    property var active: theme.intensity2
+    property var hoovered: theme.intensity3
 
     property var dockBorderColor: theme.dockBorderColor
 

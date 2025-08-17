@@ -25,7 +25,8 @@ Item {
 
             text: ""
 
-            color: buttonMouseArea.containsMouse ? Theme.textFocused : Theme.text
+            color: buttonMouseArea.containsMouse ? Theme.hoovered
+                 : dashboard.visible ? Theme.active : Theme.text
 
             font.pointSize: Theme.fontSize
             font.family: Theme.fontFamily

@@ -14,8 +14,8 @@ Item {
         text: Network.icon
         font.family: Theme.fontFamily
         font.pointSize: Theme.fontSize
-        color: (btnArea.containsMouse) ? Theme.intensity2
-             : (interfaceVisible) ? Theme.intensity3 : Theme.text
+        color: (btnArea.containsMouse) ? Theme.hoovered
+             : (interfaceVisible) ? Theme.active : Theme.text
 
         MouseArea {
             id: btnArea

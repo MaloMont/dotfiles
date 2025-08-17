@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import "Widgets" as Widgets
 
 Rectangle {
-    id: widgets
+    id: rightBar
 
     color: Theme.base
 
@@ -20,22 +20,19 @@ Rectangle {
     implicitHeight: 30
 
     RowLayout {
-
+        id: widgetRow
         spacing: 20
 
 //        Widgets.ModSwitch {
 //            Layout.alignment: Qt.AlignVCenter
 //        }
-
         Widgets.Music {
+            id: leftWidget
             Layout.alignment: Qt.AlignVCenter
         }
 
-        Widgets.Bluetooth {
-            Layout.alignment: Qt.AlignVCenter
-        }
-
-        Widgets.Wifi {
+        Widgets.WifiButton {
+            id: wifiBtn
             Layout.alignment: Qt.AlignVCenter
         }
 
@@ -55,10 +52,43 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
         }
 
-// TODO: brightness, bluetooth
 
         Widgets.DashboardButton {
             Layout.alignment: Qt.AlignVCenter
+        }
+    }
+
+// TODO: brightness, bluetooth
+
+    PanelWindow {
+        anchors.top: true
+        anchors.right: true
+
+        visible: wifiBtn.interfaceVisible
+        color: "transparent"
+
+        implicitWidth: panelElements.width
+        implicitHeight: panelElements.height
+
+        RowLayout {
+            id: panelElements
+            spacing: 0
+
+            Smouth {
+                id: smouthCornerLeft
+                Layout.alignment: Qt.AlignTop
+                topRightVisible: true
+            }
+
+            Widgets.Wifi {
+                id: wifiPanelContent
+            }
+
+            Smouth {
+                id: smouthCornerRight
+                Layout.alignment: Qt.AlignTop
+                topLeftVisible: true
+            }
         }
     }
 }

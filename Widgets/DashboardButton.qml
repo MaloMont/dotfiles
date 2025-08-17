@@ -23,7 +23,7 @@ Item {
         Text {
             id: icon
 
-            text: " "
+            text: ""
 
             color: buttonMouseArea.containsMouse ? Theme.textFocused : Theme.text
 

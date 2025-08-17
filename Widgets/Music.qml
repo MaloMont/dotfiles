@@ -16,8 +16,8 @@ Item {
     property int coverSize: 0
     property var player: Mpris.players.values[0]
     property bool playing: player?.isPlaying || false
-    property real trackCurTime: player?.position
-    property real trackTotalTime: player?.length
+    property real trackCurTime: player?.position || 0
+    property real trackTotalTime: player?.length || 0
     property bool musicExists: ( (Mpris.players.values?.length || 0) > 0 )
     property var trackName: player?.trackTitle || "Unknown Title"
     property var trackArtist: player?.trackArtist || "Unknown Artist"
@@ -26,7 +26,7 @@ Item {
     // position is not updated automatically by quickshell (unless some brutal change occur)
     // we do that manually every second
     Timer {
-        running: player.playbackState == MprisPlaybackState.Playing
+        running: playing
         interval: 1000
         repeat: true
         onTriggered: {
@@ -100,10 +100,10 @@ Item {
                 MouseArea {
                     id: textMouseArea
                     anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
+                    cursorShape: (playing) ? Qt.PointingHandCursor : Qt.ArrowCursorQt
                     hoverEnabled: true
                     onClicked: {
-                        trackText.clicked.connect(player?.togglePlaying())
+                        player.togglePlaying()
                     }
                 }
             }

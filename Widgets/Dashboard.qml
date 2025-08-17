@@ -36,8 +36,10 @@ PanelWindow {
 
             GridLayout {
                 rowSpacing: 20
-                columnSpacing: 10
+                columnSpacing: 0
                 uniformCellWidths: true
+
+                implicitWidth: 300
 
                 Battery {
                     Layout.row: 0
@@ -45,41 +47,46 @@ PanelWindow {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 }
 
-                Wifi {
+                WifiButton {
+                    id: wifiBtn
                     Layout.row: 0
                     Layout.column: 11
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 }
 
-                Bluetooth {
+                Shutdown {
                     Layout.row: 0
                     Layout.column: 12
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 }
 
-                Shutdown {
-                    Layout.row: 0
-                    Layout.column: 13
+                Wifi {
+                    visible: wifiBtn.interfaceVisible
+                    id: wifiInterface
+                    Layout.row: 2
+                    Layout.column: 10
+                    Layout.columnSpan: 3
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                 }
 
                 Volume {
-                    Layout.row: 1
+                    Layout.row: 5
                     Layout.column: 10
-                    Layout.columnSpan: 4
+                    Layout.columnSpan: 3
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
                     inDashboard: true
                     requiredHeight: 20
-                    requiredWidth: 400
+                    requiredWidth: parent.width
                 }
 
                 Music {
+                    visible: musicExists
                     Layout.column: 10
                     Layout.row: 10
-                    Layout.columnSpan: 4
+                    Layout.columnSpan: 3
                     inDashboard: true
                     coverSize: 130
-                    requiredWidth: 400
+                    requiredWidth: 380
                 }
             }
         }

@@ -20,7 +20,7 @@ Item {
 	}
 
 	Connections {
-		target: Pipewire.defaultAudioSink?.audio
+		target: Pipewire.defaultAudioSink?.audio || null
 
 		function onVolumeChanged() {
 			var value = (Pipewire.defaultAudioSink?.audio.volume ?? 0)

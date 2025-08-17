@@ -16,6 +16,8 @@ Item {
 		process.startDetached();
 	}
 
+    MarginWrapperManager {}
+
     Text {
         id: icon
         text: "⏻"
@@ -23,13 +25,13 @@ Item {
         font.family: Theme.fontFamily
         anchors.centerIn: parent
         color: mouseArea.containsMouse ? Theme.intensity3 : Theme.text
-    }
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: icon
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-        onClicked: exec()
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: exec()
+        }
     }
 }

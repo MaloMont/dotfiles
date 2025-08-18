@@ -12,7 +12,7 @@ Singleton {
     property var date: new Date()
 
     readonly property string time: {
-        Qt.formatDateTime(clock.date, "ddd MMM d hh:mm:ss")
+        Qt.formatDateTime(clock.date, "ddd MMM d  hh:mm:ss") // 󱋱
     }
 
     readonly property string dayTime: {

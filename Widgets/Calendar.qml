@@ -7,18 +7,19 @@ import Quickshell.Widgets
 import "root:/"
 
 
-PanelWindow {
+ShadowedPanel {
     id: calendarOverlay
+
+    src: row
+    enable: visible
 
     visible: false
 
     anchors.top: true
     anchors.right: true
 
-    color: "transparent"
-
     implicitWidth: row.width
-    implicitHeight: row.height
+    implicitHeight: row.height + 20
 
     RowLayout {
         id: row
@@ -34,6 +35,7 @@ PanelWindow {
         Rectangle {
             color: Theme.base
             bottomLeftRadius: Theme.radius
+            bottomRightRadius: Theme.radius
 
             implicitWidth: 400
             implicitHeight: 320
@@ -184,5 +186,12 @@ PanelWindow {
                 }
             }
         }
+
+        Smouth {
+            id: smouthCornerRight
+            Layout.alignment: Qt.AlignTop
+            topLeftVisible: true
+        }
+
     }
 }

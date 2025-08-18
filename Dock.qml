@@ -141,13 +141,13 @@ PanelWindow {
         boundSpace: orbiting.space
         relPos: getRelPos()
 
+        implicitHeight: orbiting.fixedItemHeight
+        implicitWidth: volume.width + 1.5*(orbiting.fixedItemHeight - volume.height)
+
         Widgets.Volume {
             id: volume
             anchors.centerIn: parent
         }
-
-        implicitHeight: orbiting.fixedItemHeight
-        implicitWidth: volume.width + (orbiting.fixedItemHeight - volume.height)
     }
 
 

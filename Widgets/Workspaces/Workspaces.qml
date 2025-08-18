@@ -6,6 +6,7 @@ import Quickshell.Hyprland
 import "root:/"
 
 
+// Row and not RowLayout for fractional pixel alignment
 Row
 {
     spacing: 10

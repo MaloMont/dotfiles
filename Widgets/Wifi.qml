@@ -23,7 +23,7 @@ Rectangle {
 
             Layout.alignment: Qt.AlignVCenter
 
-            spacing: 10
+            spacing: 5
 
             // error / connect message
             Text {
@@ -74,7 +74,7 @@ Rectangle {
                     border.color: (networkItem.modelData.active) ? Theme.valid : Theme.intensity2
 
                     implicitHeight: 40
-                    implicitWidth: 250
+                    implicitWidth: 300
                     radius: Theme.radius
 
                     MouseArea {
@@ -130,38 +130,27 @@ Rectangle {
             }
         }
 
-        // sent/received 
-        ColumnLayout {
-
-            Layout.alignment: Qt.AlignVCenter
-
-            Text {
-                Layout.alignment: Qt.AlignHCenter
-                text: `${Network.sent} Mb `
-                font.family: Theme.fontFamily
-                font.pointSize: Theme.fontSize
-                color: Theme.intensity2
-            }
-
-            Histogram {
-                Layout.alignment: Qt.AlignHCenter
-                historyData: Network.sentHistory
-                maxValue: 100
-            }
-
-            Text {
-                Layout.alignment: Qt.AlignHCenter
-                text: `${Network.received} Mb `
-                font.family: Theme.fontFamily
-                font.pointSize: Theme.fontSize
-                color: Theme.intensity2
-            }
-            Histogram {
-                Layout.alignment: Qt.AlignHCenter
-                historyData: Network.receivedHistory
-                maxValue: 500
-            }
-        }
+//        // sent/received 
+//        ColumnLayout {
+//
+//            Layout.alignment: Qt.AlignVCenter
+//
+//            spacing: 10
+//
+//            Histogram {
+//                Layout.alignment: Qt.AlignHCenter
+//                historyData: Network.sentHistory
+//                title: `${Network.sent} Mb `
+//                maxValue: 100
+//            }
+//
+//            Histogram {
+//                Layout.alignment: Qt.AlignHCenter
+//                historyData: Network.receivedHistory
+//                title: `${Network.received} Mb `
+//                maxValue: 500
+//            }
+//        }
     }
 
     readonly property list<string> loadingIcons: [".  ", ".. ", "..."]

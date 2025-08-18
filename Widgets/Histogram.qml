@@ -8,6 +8,7 @@ Rectangle {
     id: root
 
     required property list<real> historyData
+    property string title: ""
 
     property real maxValue: 500
 
@@ -20,41 +21,60 @@ Rectangle {
     color: Theme.dark_base
     implicitWidth: 100
     implicitHeight: 50
+    topLeftRadius: Theme.radius
+    topRightRadius: Theme.radius
 
-    RowLayout {
+    ColumnLayout {
         anchors.fill: parent
 
-        spacing: 0
+        Text {
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            text: root.title
+            font.family: Theme.fontFamily
+            font.pointSize: Theme.fontSize
+            color: Theme.intensity2
+        }
 
-        Repeater {
-            model: root.historyData
+        Rectangle {
 
-            Rectangle {
-                id: bar
-                required property real modelData
+            color: "transparent"
 
-                Layout.alignment: Qt.AlignBottom
+            RowLayout {
+                anchors.fill: parent
 
-                implicitWidth: root.implicitWidth / historyData.length
-                implicitHeight: calculateHeight(modelData)
-                color: Theme.surface
-    
-                Rectangle {
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                spacing: 0
 
-                    color: Theme.intensity2
-                    implicitHeight: lineWidth
+                Repeater {
+                    model: root.historyData
+
+                    Rectangle {
+                        id: bar
+                        required property real modelData
+
+                        Layout.alignment: Qt.AlignBottom
+
+                        implicitWidth: root.implicitWidth / historyData.length
+                        implicitHeight: calculateHeight(modelData)
+                        color: Theme.surface
+            
+                        Rectangle {
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+
+                            color: Theme.intensity2
+                            implicitHeight: lineWidth
+                        }
+                    }
                 }
             }
+
+            function calculateHeight(value) {
+                if(maxValue == 0 || value == 0)
+                    return lineWidth
+
+                return root.implicitHeight * (value / maxValue)
+            }
         }
-    }
-
-    function calculateHeight(value) {
-        if(maxValue == 0 || value == 0)
-            return lineWidth
-
-        return root.implicitHeight * (value / maxValue)
     }
 }

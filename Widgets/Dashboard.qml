@@ -1,22 +1,25 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import "Workspaces"
 import "../"
 
-PanelWindow {
+ShadowedPanel {
 
-    implicitWidth: panelBackground.width + smouthCorner.width
-    implicitHeight: panelBackground.height
+    src: row
+    enable: visible
 
-    color: "transparent"
+    implicitWidth: panelBackground.width + smouthCornerLeft.width +  + smouthCornerRight.width
+    implicitHeight: panelBackground.height + 100
 
     RowLayout {
+        id: row
         spacing: 0
 
         Smouth {
-            id: smouthCorner
+            id: smouthCornerLeft
             Layout.alignment: Qt.AlignTop
             topRightVisible: true
         }
@@ -32,6 +35,7 @@ PanelWindow {
             }
 
             bottomLeftRadius: Theme.radius
+            bottomRightRadius: Theme.radius
             color: Theme.base
 
             ColumnLayout {
@@ -101,6 +105,12 @@ PanelWindow {
                     requiredWidth: parent.width - 20
                 }
             }
+        }
+
+        Smouth {
+            id: smouthCornerRight
+            Layout.alignment: Qt.AlignTop
+            topLeftVisible: true
         }
     }
 }

@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
 import "Widgets" as Widgets
 
 Rectangle {
@@ -26,6 +27,7 @@ Rectangle {
 //        Widgets.ModSwitch {
 //            Layout.alignment: Qt.AlignVCenter
 //        }
+
         Widgets.Music {
             id: leftWidget
             Layout.alignment: Qt.AlignVCenter
@@ -60,15 +62,18 @@ Rectangle {
 
 // TODO: brightness, bluetooth
 
-    PanelWindow {
+    Widgets.ShadowedPanel {
+
+        src: panelElements
+        enable: visible
+
         anchors.top: true
         anchors.right: true
 
         visible: wifiBtn.interfaceVisible
-        color: "transparent"
 
         implicitWidth: panelElements.width
-        implicitHeight: panelElements.height
+        implicitHeight: panelElements.height + 20
 
         RowLayout {
             id: panelElements
